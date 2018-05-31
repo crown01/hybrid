@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+       
+        var Gouzi = React.createClass({
+            getInitialState () {
+                return {
+                    num: 1,
+                    doing: '玩游戏'
+                }
+            },
+            study () {
+                //更新数据 创建新的虚拟dom做出对比，rerender
+               //在react中想要去更改状态来引起rerender，只能调用setState
+               //改什么写什么
+            //    this.setState({//
+            //        doing: '学习...'
+            //    })
+                this.setState((preveState, props) => {   
+                    return {
+                        doing: preveState.doing === '玩游戏' ? '学习'+props.knowledge : '玩游戏'
+                    }
+                })
+
+                // 如果我并不像更改状态，但是我像rerender
+                // this.setState({})
+            },
+            render:function () {
+                console.log('render')
+                return (
+                    <div>
+                      <p> <button onClick = { this.study } >学习</button> </p>
+                      <p>我正在 { this.state.doing }</p>
+                    </div>
+                )
+            }
+        })
+
+        ReactDOM.render(<Gouzi  knowledge = { '英语' } />,document.getElementById("app"))
+        
+    </script>
+</body>
+</html>

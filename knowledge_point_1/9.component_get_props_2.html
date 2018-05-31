@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<style>
+    
+</style>
+
+<body>
+    
+    <p> 子组件的属性也有由父组件设置...</p>
+
+    <hr>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+    //在 react 中 父组件可以给子组件传递数据，子组件在this.props里接收，不需要像vue一样，写
+    // props
+       var Father = React.createClass({
+           render(){
+               return (
+                   <div>
+                     <p>我是父组件</p>
+                     <Son name = {"大狗"} />
+                     <Son name = {"二狗"} />
+                   </div>
+               )
+           }
+       })
+       var Son = React.createClass({
+           render(){
+               return (
+                   <div>
+                      <p>我是子组件，我叫 { this.props.name } </p>
+                   </div>
+               )
+           }
+       })
+
+       ReactDOM.render(<Father/>,app)
+
+
+    </script>
+</body>
+</html>

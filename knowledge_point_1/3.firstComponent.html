@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>   
+</body>
+
+<!-- 这里的text/babel的目的是为了让browser.js去处理 -->
+<script type = "text/babel">
+
+    // Vue :实例的类  new Vue():实例
+    // var Hello = Vue.extend({}) Hello: Vue的子类、组件类、组件！    <hello></hello> == new Hello():组件的实例
+
+
+    //创建了组件
+    //1. 组件就是一个类  这种写法是15.X里的 
+    //2. 组件没有template属性，dom结构是直接构建在render函数里
+    //3. render函数就是用来渲染dom结构的，生命周期初始化钩子函数
+    
+    //*. 在react中创建组件的dom结构的时候。会使用一些类似于HTML的代码
+    //*. js里的直接写标签的写法肯定是错误的，也就是说，这样的写法需要编译
+    //4. 在react中创建组件的dom结构可以直接使用React.createElement,但是这样的写法代码可读性很差，更新维护也麻烦，开发效率也不高，故而，react引入了JSX的语法糖，让我们可以通过这种语法糖来快速高效的构建组件结构
+    //5. 语法糖：能在开发上提供很大帮助，但是语法糖一般都需要编译
+    //6. JSX: javascript xml,在这里，只是借鉴了一些xml的语法
+    //   最外层要有根节点  ， 组件必须闭合
+
+    //7. jsx的编译方式有很多种工具可以做到，在这里只是使用了browser.js在浏览器端进行编译，但是在真实开发中，给用户看到的都是直接编译之后的，所以我们需要搭建编译环境，一边开发，一边编译。使用的工具 webpack、gulp、jsx-loader、babel-loader..
+
+    // xml： 一种古老的数据交互格式 ； 一种标记语言，可以用来布局（Android、ios）
+
+
+
+    var Hello = React.createClass({
+        render () {
+            console.log('render')
+            return (
+                <div>
+                    <div>
+                        Hello World
+                    </div>
+                    <div>
+                        Hello React
+                    </div>
+                    <img />
+                </div>
+            )
+        }
+    })
+    //渲染了组件
+    ReactDOM.render(<Hello/>, document.getElementById('app'))
+
+
+    //这样就是直接使用React.createElement创建组件的写法，代码可读性很差，更新维护也麻烦
+    // var Hello = React.createElement('div',{ id: 'odiv' }, [
+    //     React.createElement('p',{ },'HelloWorld'),
+    //     React.createElement('p',{ },'HelloReact'),
+    // ])
+    // ReactDOM.render(Hello, document.getElementById('app'))
+
+</script>
+
+</html>

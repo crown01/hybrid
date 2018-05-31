@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<style>
+  
+</style>
+
+<body>
+   
+    <p>注意，在没有渲染的时候，页面中没有真实dom，所以是获取不到dom的</p>
+
+    <div id="hello"></div>
+
+
+
+    <script type="text/babel">
+        
+
+        //react中，事件需要直接绑定在虚拟dom节点身上，使用小驼峰的形式，传入一个函数体！
+        var Hello = React.createClass({
+            handleClick () {
+                alert(1)
+            },
+            render () {
+                return (
+                    <div>
+                        <button onClick = { this.handleClick }>click</button>
+                        <button onDoubleClick = { this.handleClick }>click</button>
+                    </div>
+                )
+            }
+        })
+
+    
+
+
+   
+        ReactDOM.render(<Hello/>,hello)
+
+    </script>
+</body>
+</html>

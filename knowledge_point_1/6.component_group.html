@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<style>
+    .comment-box{
+        width: 600px;
+        height: 600px;
+        border: 1px solid #333;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    .comment-box__title{
+        border-bottom: 1px solid   #ccc;
+        margin: 0;padding: 10px 0;
+    }
+    .comment-item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .comment-item__info{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .comment-item__info img{
+        width: 80px;height: 80px;
+        margin-right: 10px;
+    }
+    .comment-form{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    .comment-form__text{
+        display: block;
+        width: 100%;
+        height: 150px;
+    }
+</style>
+
+<body>
+   <p>将一个组件渲染到某一个节点里的时候，会将这个节点里原有内容覆盖</p>
+    <p>组件是可以嵌套到另一个组件里的</p>
+    
+    <div id="app">
+
+    </div>
+   
+   
+
+
+    <script type="text/babel">
+    //在react中组件的嵌套只能形成父子关系 
+    //在vue中拥有slot来处理子组件使用时标签内写入的内容
+    //在react中通过this.props.children来使用
+       /*  var Hello = React.createClass({
+            render () {
+                return (
+                    <div>Hello  
+                        <Message> !!! </Message> 
+                    </div>
+                )
+            }
+        })
+        var Message = React.createClass({
+            render () {
+                return (
+                    <span>React.js { this.props.children } </span>
+                )
+            }
+        })
+
+        ReactDOM.render(<Hello/>,document.getElementById('app')) */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var CommentBoxComponent = React.createClass({
+            render:function () {
+                return (
+                    <div className="comment-box">
+                        <h3 className="comment-box__title">Comments</h3>
+                        <CommentListComponent/>
+                        <FormComponent/>
+                    </div>
+                )
+            }
+        })
+
+        var CommentListComponent = React.createClass({
+            render:function () {
+                return (
+                    <div className="comment-list">
+                        <CommentItemComponent/>
+                        <CommentItemComponent/>
+                        <CommentItemComponent/>
+                    </div>
+                )
+            }
+        })
+
+        var CommentItemComponent = React.createClass({
+            render:function () {
+                return (
+                    <div className="comment-item">
+                        <div className="comment-item__info">
+                            <img src="http://www.114la.com/static/upd/201706/291205067ba516a5.jpg" alt=""/>   
+                            <div className="comment-item__info--text">
+                                <h4>title</h4>
+                                <p>description</p>
+                            </div> 
+                        </div>
+                        <ButtonComponent text={"replay"}/>
+                    </div>
+                )
+            }
+        })
+
+        var FormComponent = React.createClass({
+            render:function () {
+                return (
+                    <form className="comment-form">
+                        <textarea className="comment-form__text">
+                        </textarea>
+                        <ButtonComponent text={"send"}/>
+                    </form>
+                )
+            }
+        })
+
+        var ButtonComponent = React.createClass({
+            render:function () {
+                return (
+                    <button>{this.props.text}</button>
+                )
+            }
+        })
+        
+
+        ReactDOM.render(<CommentBoxComponent/>,app)
+
+
+        
+    </script>
+</body>
+</html>

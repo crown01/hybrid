@@ -1,0 +1,38 @@
+.user {
+    .header {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        .bg {
+            width: 100%;
+            height: 100%;
+
+            background-image: url(/images/user-bg.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            filter: blur(10px);
+            position: absolute;
+            top: 0px;left: 0px;
+        }
+        .user-info {
+            width: 100%;height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 999;
+            .head-img{
+                width: 1rem;height: 1rem;
+                border-radius: 50%;
+                overflow: hidden;
+
+                img { width: 100%; }
+            }
+            .username {
+                margin: 10px 0px;
+            }
+        }
+    }
+}

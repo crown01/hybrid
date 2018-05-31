@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   
+</style>
+<body>
+    
+    
+
+    <hr>
+    <div id="app"></div>
+    
+
+
+
+    <script type="text/babel">
+        
+        var Father = React.createClass({
+            getInitialState () {
+                return {
+                    num : 0
+                }
+            },
+            punch () {
+                this.setState({num: ++this.state.num})
+            },
+            render () {//父组件将自己的状态传递给子组件，子组件在props里接收
+                return (
+                    <div>
+                        <p>父组件 <button onClick = { this.punch }>打儿子</button> </p>                  
+                        <Son num = { this.state.num } />
+                    </div>
+                )
+            }
+        })
+        var Son = React.createClass({
+            componentWillReceiveProps (props, state) {
+                console.log('componentWillReceiveProps')
+                //触发： 当接收到的属性变化的时候会触发
+                //作用： 可以在这里更改改变后的属性去做一些事情，比如，更改自己的状态
+                //特点： 1.在这里this上的属性还没有更新，要想使用最新的数据，需要从参数中得到
+                //       2.在这个钩子函数中如果更改状态的话是不会再次触发render，只会触发一次
+                console.log(this.props.num, props.num)
+                if ( props.num > 5 && !this.state.hurt) {
+                    this.setState({hurt: true})
+                }
+            },
+            shouldComponentUpdate (props, state) {//接收到的是当前最新的状态，还没有挂载到this上
+                console.log( 'shouldComponentUpdate')
+                //触发： 当属性或者状态改变的时候都会触发
+                //特点： 默认会return true，如果我们写的话必须return true/false
+                //作用： 可以阻止生命周期函数向下执行,在这里做一些性能优化..
+                return state.hurt
+            },
+            componentWillUpdate (props, state) {
+                //作用： 没有，多作一些调试的工作
+            },
+            getInitialState () {
+                return {
+                    hurt: false
+                }
+            },
+            render () {
+                console.log('rednmder')
+                return (
+                    <div>
+                        <p>子组件</p>
+                        <p>爸爸打了我 {this.props.num} 下</p>
+                        <p>我{this.state.hurt? '' : '不'}疼</p>
+                    </div>
+                )
+            },
+            componentDidUpdate () {
+                //作用： 在这里可以操作到更新完成后的dom了
+            }
+        })
+        ReactDOM.render(<Father/>,app)
+
+        
+    </script>
+</body>
+</html>

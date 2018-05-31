@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   
+</style>
+<body>
+    
+    <p>
+        react对原生事件对象进行二次封装，在不使用的时候的值都是null
+    </p>
+    
+    <div id="app"></div>
+    
+    <!-- <button id="btn">asdsa</button>
+    <script>
+        btn.onclick = function (e) {
+            console.log(e)
+        }
+    </script> -->
+    <script type="text/babel">
+    
+  
+       var Hello = React.createClass({
+           clickHandler (e) {
+               //方法会被自动注入事件对象
+               //react将事件对象封装处理了，做好了兼容，性能优化
+               console.log(e.clientX) 
+           },
+           render:function () {
+            
+               return (
+                   <div>
+                      <button onClick = {this.clickHandler}>click</button> 
+                   </div>
+               )
+           }
+       })
+        
+
+        ReactDOM.render(<Hello/>,app)
+
+        
+    </script>
+</body>
+</html>

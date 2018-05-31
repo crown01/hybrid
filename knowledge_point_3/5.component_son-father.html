@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   .panel button{
+       margin: 0px 5px;
+   }
+</style>
+<body>
+    <p>父组件将自己的方法传递给子组件供子组件调用</p>
+    <div id="app">
+    </div>
+    
+
+    <script type="text/babel">
+        //父组件将自己的方法传递给子组件，供子组件调用
+        var Father = React.createClass({ 
+            getInitialState () {
+                return { money: 10 }
+            },
+            buySonRacoon () {
+                this.setState({money: --this.state.money})
+            },
+            shouldComponentUpdate (props, state) {
+                if ( state.money < 0 ) {
+                    alert('没有钱了')
+                    return false
+                }
+                return true
+            },
+            render:function () {
+                return (
+                    <div>
+                        <p>我是父亲 -- 我有{ this.state.money }元钱</p>
+                        <hr/>
+                        <Son tellDady = { this.buySonRacoon } />
+                    </div>
+                )
+            }
+        })
+        var Son = React.createClass({            
+            render:function () {
+                return (
+                    <div>
+                        <p>我是儿子 <button onClick = { this.props.tellDady }>我要吃小浣熊</button>  </p>
+                    </div>
+                )
+            }
+        })
+        
+        ReactDOM.render(<Father/>,document.getElementById("app"))
+
+        
+    </script>
+</body>
+</html>

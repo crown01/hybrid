@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<body>
+    <p>因为有些数据是只能自己设置和自己更改的，我们就把这些数据挂载到状态上，getInitialState，组件内部通过this.state来获取</p>
+    <hr>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        //组件想要拥有状态，只能通过getInitialState方法来进行设置
+        var Gouzi = React.createClass({
+            getInitialState () {
+                return {
+                    doing: '玩游戏'
+                }
+            },
+            render:function () {
+                return (
+                    <div>
+                      <p>我正在 { this.state.doing }</p>
+                    </div>
+                )
+            }
+        })
+
+        ReactDOM.render(<Gouzi />,document.getElementById("app"))
+        
+    </script>
+</body>
+</html>

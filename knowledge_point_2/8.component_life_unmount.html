@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+    body {
+        height: 2000px;
+    }
+    #app {
+        position: fixed;
+    }
+</style>
+<body>
+    <div id="app"></div>
+</body>
+<script type = "text/babel">
+    var Hello = React.createClass({
+        getInitialState () {
+            return {
+                isShow: true
+            }
+        },
+        toggle () {
+            this.setState({isShow: !this.state.isShow})
+        },
+        render () {
+            let { isShow } = this.state 
+            return (
+                <div>
+                    这里是hello <br/>
+                    <button onClick = { this.toggle}>toggle</button>
+                    {
+                        !isShow || <World/>   
+                    }
+                                    
+                </div>
+            )
+        }
+    })
+    //需要操控的数据不一定非得挂载在组件的状态上，直接挂载在this上也可以，但是当我们直接更改的时候不会触发rerender，所以需要还是得执行setState
+    var World = React.createClass({
+        componentWillUnmount () { // beforeDestroy
+            //触发： 在销毁前触发
+            //作用： 善后工作
+            window.removeEventListener('scroll', this.middleWare)
+        },
+        color: 'red',
+        render () {
+            return (
+                <div style={{color: this.color}}>
+                    这里是world
+                </div>
+            )
+        },
+        componentDidMount () {
+            console.log('componentDidMount')
+            window.addEventListener('scroll',this.middleWare)
+        },
+        middleWare (e) {
+            console.log(window)
+            this.listenScroll()
+        },
+        listenScroll () {
+            console.log('scroll')       
+            this.color = getRandomColor    
+        },
+        getRandomColor () {
+            let num1 = Math.floor(Math.random()*256)
+            let num2 = Math.floor(Math.random()*256)
+            let num3 = Math.floor(Math.random()*256)
+            return `rgb(${num1},${num2},${num3})`
+        }
+    })
+
+    ReactDOM.render(<Hello/>,document.getElementById('app'))
+</script>
+
+</html>

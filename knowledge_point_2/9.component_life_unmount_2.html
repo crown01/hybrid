@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   
+</style>
+<body>
+    
+    <p>ReactDOM.unmountComponentAtNode(document.getElementById("app"))</p>
+    <hr>
+    <div id="app"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/babel">
+
+        var Hello = React.createClass({
+           getInitialState () {
+               return {
+                   num: 1
+               }
+           },
+           componentWillMount () {
+               this.timer = setInterval(() => {
+                   console.log('go')
+                    this.state.num ++ 
+                    this.setState({})
+               }, 200)
+           },
+           componentWillUnmount () {
+                clearInterval( this.timer )
+           },
+           destory () {
+                ReactDOM.unmountComponentAtNode(document.getElementById('app'))
+           },
+            render () {
+                return (
+                    <div>
+                        <button onClick = {this.destory}> destroy</button>
+                        <h1 >Hello World - {this.state.num} </h1>
+                    </div>
+                )
+            }
+        })
+
+        ReactDOM.render(<Hello/>,document.getElementById('app'))
+        
+
+        
+    </script>
+</body>
+</html>

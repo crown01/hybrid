@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   .panel button{
+       margin: 0px 5px;
+   }
+</style>
+<body>
+    <p>父组件可以利用ref对子组件进行标记。这样的话就可以在父组件里调用子组件的方法</p>
+    <div id="app">
+    </div>
+    
+    
+
+    
+    <script type="text/babel">
+
+        var Father = React.createClass({
+            hitSon () {
+                // 改变子组件的状态
+                // this.refs.son.goToStudy()
+                this.son.goToStudy()
+            },
+            render () {
+                return (
+                    <div>
+                        <p>这是一个父组件 <button onClick = {this.hitSon}>给他一脚</button> </p>
+                        <hr/>
+                        <Son ref = { el => this.son = el  }/>
+                    </div>
+                )
+            }
+        })
+        var Son = React.createClass({
+            getInitialState () {
+                return {
+                    doing: '玩游戏'
+                }
+            },
+            goToStudy () {
+                this.setState({doing: '学习'})
+            },
+            render () {
+                return (
+                    <div>
+                        <p>这是一个子组件</p>
+                        <p>我正在 {this.state.doing} </p>
+                    </div>
+                )
+            }
+        })
+        ReactDOM.render(<Father/>,document.getElementById("app"))
+
+        
+    </script>
+</body>
+</html>

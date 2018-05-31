@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+    .dialog-box {
+        position: absolute;
+        left: 0;right: 0;top:0;bottom: 0;
+        margin:auto;
+    }
+  .dialog{
+      padding: 20px;
+      border: 1px solid rgb(235, 235, 235);
+      box-shadow: 0px 10px 15px rgb(224, 224, 224);
+        width: 300px;height: 200px;
+        position: absolute;
+        left: 0;right: 0;top:0;bottom: 0;
+        margin:auto;
+  }
+</style>
+<body>
+    
+    
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/babel">
+     
+
+        // 在使用组件的时候，可以在组件的标签内部写入内容，在vue中使用slot来使用这些内容，在react中，我们在this.props.children可以找到，并且是一个数组，可以随心所欲的操作，更多使用于自定义组件的时候
+
+        var App = React.createClass({
+            getInitialState () {
+                return {
+                    isShow: false
+                }
+            },
+            toggle () {
+                this.setState({isShow: !this.state.isShow})
+            },
+            close () { this.setState({isShow: false}) },
+            render () {  
+                let { isShow } = this.state           
+                return (
+                    <div>
+                        <button onClick = { this.toggle }>showDialog</button>
+                        { !isShow || (
+                            <Dialog
+                                close = { this.close }
+                                closeBtn = { true }
+                            >
+                                <div>今天是个好日子</div>
+                                sdfsadasdas
+                            </Dialog>
+                        ) }
+                    </div>
+                )
+            }
+        }) 
+
+        var Dialog = React.createClass({
+            
+            render () {
+                console.log(this)
+                let { closeBtn, close } = this.props
+                return (
+                    <div onClick = { close } className = "dialog-box">                   
+                        <div className = "dialog">
+                            { !closeBtn || <button onClick = { close }>X</button>}
+                        
+                            { this.props.children[0] }
+                            <hr/>
+                            { this.props.children[1] }
+                        </div>
+                    
+                    </div>
+                )
+            }
+        })
+        ReactDOM.render(<App/>,document.body)
+
+        
+    </script>
+</body>
+</html>

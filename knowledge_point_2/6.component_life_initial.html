@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<body>
+    
+    <div id="app"></div>
+    <div id="app1"></div>
+    
+    <script type="text/babel">
+        //  vue：    少林方丈 ，渐进式、主张较弱 -> 优雅
+        //  angular: 东方不败， 主张较强 
+        //  react  ：独孤求败 返璞归真 独孤九剑
+
+        //  首先，实例化组件之后，组件会进行初始化阶段，先初始化生命周期体系，就会执行beforeCreate，在这个钩子函数里不能访问到数据、dom，然后就会去挂载数据，绑定事件...然后执行created，在这个钩子函数里可以访问到数据，而且，在这里更改数据不会触发其他阶段的钩子函数重新执行，所以多用于初始状态的获取，然后组件会寻找组件的模板，将其编译成虚拟dom结构，然后执行beforeMount，在这个钩子函数依然可以访问到数据，dom依然访问不到，在这里我们也可以做初始数据获取，然后准备挂载dom到视图中，这个时候就会执行render函数，然后开始挂载，之后执行mounted，在这个钩子函数可以访问到dom了，在这里可以进行插件的实例化等等动作，生命周期的初始化阶段结束
+        // 当数据改变会马上执行beforeUpdate，在这里我们不能更改状态，否则会造成死循环 dead loop,然后创建新的虚拟dom结构，与上一次虚拟dom做出diff对比，然后重新渲染
+        // 当我们想要销毁组件的时候，会调用$destory，就会马上调用beforeDestory函数，在这个函数里我们可以做一些擦屁股的动作（善后）：清除一些计时器、事件绑定，然后就会销毁组件，完成后会触发destoryed，在这里也可以善后，注意的是，组件被销毁的时候，dom结构还会存在于页面中
+
+        // react的生命周期也是分为三个阶段，初始化、运行中、销毁，注意：在新版本的react中使用类来创建组件的时候会与老版本稍稍不同
+
+        var props_num = 0
+        var state_num = 0
+        var Hello = React.createClass({
+            getDefaultProps () {
+                console.log(' getDefaultProps ')
+                //作用： 为组件设置默认属性
+                //特点： 在多次使用的时候也只执行一次
+                //原因： 在vue中，组件挂载数据需要写出函数返回的形式，就是为了每一个组件的实例，都能拥有自己独立的数据，互不干扰，在react中，状态必须是独立，所以getInitialState会在使用的时候每次都执行， 而属性是需要各个实例间共享的，所以只执行一次，只创建一次，节省空间
+                return {
+                    num: ++ props_num
+                }
+            },
+            getInitialState () {
+                console.log(' getInitialState ')
+                //作用： 是为了每一个组件的实例挂载独立的状态
+                return {
+                    num: ++ state_num
+                }
+            },
+            componentWillMount () {//created + beforeMount
+                console.log('componentWillMount')
+                //作用： 做一些初始数据的获取和设置
+                //特点： 更该数据不会触发运行中阶段的钩子函数
+
+                // this.setState({num: 10})
+            },
+            render () { 
+                console.log('render')
+                //作用： 构建组件的虚拟dom结构并进行编译
+                return (
+                    <div>   
+                        Hello World
+                        <p>props-num: {this.props.num} </p>
+                        <p>state-num: {this.state.num} </p>
+                    </div>
+                )
+            },
+            componentDidMount () { // mounted
+                //作用： 在这里可以操作dom
+                //特点： 可以访问到已经渲染的dom
+            }
+        })
+
+        ReactDOM.render(<Hello/>,document.getElementById("app"))
+        // ReactDOM.render(<Hello/>,document.getElementById("app1"))
+       
+
+    //    vue.component('hello', {
+    //        data () {
+    //            return {
+
+    //            }
+    //        }
+    //    })
+
+      
+
+    </script>
+</body>
+</html>

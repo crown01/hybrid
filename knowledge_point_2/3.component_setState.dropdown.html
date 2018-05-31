@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+    .show{display: block;}
+    .hide{display: none;}
+</style>
+<body>
+    <p>页面不同显示还是需要有数据来控制</p>
+    <p>可以通过ref来对组件dom结构里的某一个dom做出标记，这样的话可以在组件内部通过this.refs来进行获取</p>
+    <hr>
+    <div id="app"></div>
+    <hr>
+    <div id="app1"></div>
+
+
+    <script type="text/babel">
+        // isShow
+        var DropDown = React.createClass({
+            getInitialState () {
+                return {
+                    isShow: true
+                }
+            },
+            toggle () {//控制isSHow数据的
+                this.setState((prev) => {
+                    return { isShow : !prev.isShow }
+                })
+            },
+            renderContent () {//根据数据来控制返回结果
+                if ( !this.state.isShow ) return '';
+                return (<ul> <li>第一条数据</li> <li>第二条数据</li> </ul>)
+            },
+            render:function () {
+                let { isShow } = this.state 
+                return (
+                    <div>
+                        <button onClick = { this.toggle }>toggle</button> 
+                        
+                        <ul className = { isShow? 'show' : 'hide' } > <li>第一条数据</li> <li>第二条数据</li> </ul>     
+                                     
+                        <ul style = { { display:  isShow? 'block' : 'none' } } > <li>第一条数据</li> <li>第二条数据</li> </ul>               
+                        
+                        {
+                            !isShow || <ul> <li>第一条数据</li> <li>第二条数据</li> </ul>
+                        }
+
+                        { this.renderContent() }
+                                       
+                    </div>
+                )
+            }
+        })
+        ReactDOM.render(<DropDown/>,document.getElementById("app"))
+        // ReactDOM.render(<DropDown/>,document.getElementById("app1"))
+        
+    </script>
+</body>
+</html>

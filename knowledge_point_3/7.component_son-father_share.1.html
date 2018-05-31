@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+  
+</style>
+<body>
+    
+    
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/babel">
+       var Box = React.createClass({
+           getInitialState:function () {
+               return {
+                   num:0
+               }
+           },     
+           controlNum(type){
+            this.setState(({num})=>{
+                return {
+                    num:type?++num:--num
+                }
+            })
+           },
+           render:function () {
+               return (
+                   <div>
+                        <p><button onClick={this.controlNum.bind(this,false)}>-</button>{this.state.num}<button onClick={this.controlNum.bind(this,true)}>+</button></p>
+                        <hr/>
+                        <Skin num={this.state.num} controlNum={this.controlNum}/>
+                   </div>
+               )
+           }
+       })
+       var Skin = React.createClass({
+           render:function () {
+               return (
+                   <div>
+                        <p>
+                            <button onClick={this.props.controlNum.bind(this,false)}>-</button>
+                            {this.props.num}
+                            <button onClick={this.props.controlNum.bind(this,true)}>+</button>
+                        </p>
+                   </div>
+               )
+           }
+       })
+        
+        ReactDOM.render(<Box/>,document.body)
+
+        
+    </script>
+</body>
+</html>

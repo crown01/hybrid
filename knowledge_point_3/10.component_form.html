@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+  .son2{
+      width: 100px;height: 100px;
+  }
+</style>
+<body>
+    
+    
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/babel">
+    //如果要给表单加默认值或者默认选中状态 写出  defaultValue defaultChecked
+        var Form = React.createClass({
+               
+            render:function () {
+                return (
+                    <form>
+                      <input type = "text" defaultValue = "123" />
+                      <input type = "checkbox" defaultChecked />
+                    </form>
+                )
+            }
+        })
+               
+        ReactDOM.render(<Form/>,document.body)
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>123</div>
+    <span id="num"></span>
+</body>
+
+<script>
+  let $num = $("#num")
+
+    $num.html(1) //一次虚拟dom
+    $num.html(2)
+    $num.html(3)
+    $num.html(1) //一次虚拟dom
+
+//    var vd1 = {
+//        tag: 'div',
+//        attr: {
+//            id: 'odiv',
+//            className: 'a'
+//        },
+//        content: '123'
+//    }
+
+//    var vd2 = {
+//        tag: 'div',
+//        attr: {
+//            id: 'odiv',
+//            className: 'b'
+//        },
+//        content: '456'
+//    }
+
+    //利用diff算法进行高效对比，将需要更新的内容，进行更新
+
+</script>
+</html>

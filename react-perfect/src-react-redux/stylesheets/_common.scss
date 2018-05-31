@@ -1,0 +1,20 @@
+
+
+.clearfix:after {
+    content: '';
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    clear: both;
+}
+
+.a {
+    @include border-radius;
+    color: $base-color;
+}
+
+.finished {
+    text-decoration: line-through;
+    color: #ccc;
+}

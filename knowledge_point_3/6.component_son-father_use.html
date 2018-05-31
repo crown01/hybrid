@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+    /* $daycolor: #333;
+    $nightcolor: #fff;
+    
+    body.day  {
+        a { color:  $daycolor; background: $nightcolor; }
+    }
+    body.night  {
+        a { color:  $nightcolor; background: $daycolor; }
+    } */
+
+
+
+  .success h1{
+    color: rgb(16, 165, 73);
+  }
+  .success p{
+      color: rgb(50, 240, 129);
+  }
+  .danger h1{
+    color: rgb(211, 24, 24);
+  }
+  .danger p{
+      color: rgb(250, 83, 83);
+  }
+  .primary h1{
+    color: rgb(18, 129, 233);
+  }
+  .primary p{
+      color: rgb(142, 190, 252);
+  }
+
+</style>
+<body >
+    
+    
+
+   
+    <script type="text/babel">
+       var Box = React.createClass({   
+           getInitialState () {
+                return { theme: '' }
+           },
+           changeTheme (theme) {
+                this.setState({theme})
+           },
+           render:function () {
+               return (
+                   <div className = { this.state.theme }> 
+                        <Skin onClick = { this.changeTheme }/>
+                       <h1>hello world</h1>
+                       <p>同一个世界，同一个梦想</p>
+                   </div>
+               )
+           }
+       })
+      var Skin = React.createClass({
+           getDefaultProps () {
+                return {
+                    themes: ['success', 'primary', 'danger']
+                }
+           },
+           render:function () {
+               return (
+                   <div> 
+                       {
+                           this.props.themes.map(item => (
+                               <button onClick = { this.props.onClick.bind(null, item) } >{item}</button>
+                           ))
+                       }
+                   </div>
+               )
+           }
+       })
+        
+        ReactDOM.render(<Box/>,document.body)
+
+        
+    </script>
+</body>
+</html>

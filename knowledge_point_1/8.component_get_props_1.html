@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<style>
+    
+</style>
+
+<body>
+    <p>当组价被渲染的时候被赋予属性</p>
+    <p>在组件内部通过this.props来获取</p>
+    <hr>
+
+    <div id="app"></div>
+    <div id="app1"></div>
+   
+
+    <script type="text/babel">
+        // vue中表达式的名字叫mustache (胡子)
+        var Gouzi = React.createClass({
+            render () {
+                
+                return (
+                    <div>
+                        <p>我的名字是：{ this.props.name }</p>
+                        <p>我的年龄是：{this.props.age + 1 } 岁</p>
+                        <p>我的女朋友是：{ this.props.girl.name } </p>
+                        <p>我的父亲是：{ this.props.father} </p>
+                    </div>
+                )
+            }
+        })
+
+        let girl = {
+            name: '翠花',
+            age: 12
+        }
+
+        let parents = {
+            father: '刘中华',
+            mother: '赵惠芬'
+        }
+
+        ReactDOM.render(<Gouzi { ...parents } girl = { girl }  age = { 13 } name = { "二狗子" } />,app)
+     
+     </script>
+</body>
+</html>

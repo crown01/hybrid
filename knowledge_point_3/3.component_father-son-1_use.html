@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   .panel button{
+       margin: 0px 5px;
+   }
+   .list-group{
+       width: 40%;
+       float: left;
+   }
+</style>
+<body>
+
+    <div id="app" class="container"> 
+
+          
+       
+    </div> 
+    
+    
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/babel">
+    // http://api.douban.com/v2/movie/in_theaters
+       
+        //电影盒子
+        var MovieBox = React.createClass({
+            getDefaultProps () {
+                //放在属性上是为了防止在其他情况下传入城市信息
+                return {
+                    citys: [
+                        {id: 1, title: '北京'},
+                        {id: 2, title: '上海'},
+                        {id: 3, title: '广州'},
+                        {id: 4, title: '大同'}
+                    ]
+                }
+            },
+            getInitialState () {
+                return {
+                    activeId: 1//控制当前城市的id
+                }
+            },
+            // changeCityId (id) {//专门更改id从而更改当前城市的方法
+            //     let that = this
+            //     return function () {
+            //         that.setState({activeId: id})
+            //     }
+            // },
+            // shouldComponentUpdate (props, state) {
+            //     //父组件activeId更改之后，如果改完的和当前的一样，就不要rerender
+            //     if( this.state.activeId === state.activeId ) return false;
+            //     return true;
+            // },
+            changeCityId (id) {//专门更改id从而更改当前城市的方法
+                this.setState({activeId: id})   
+            },
+            getCityById () {//从citys里根据activeId得到正确的数据的
+                let { citys } = this.props
+                let { activeId } = this.state
+                let len = citys.length
+                for (let i = 0; i < len; i++) {//在这里使用for循环可以有效在某些特定时刻去停止遍历
+                   if( citys[i].id === activeId ){
+                       return citys[i].title;
+                       break;
+                   }
+                }
+            },
+            render () {
+                let { citys } = this.props
+                let { activeId } = this.state
+                return (
+                    <div className="panel panel-primary">    
+                        <div className="panel-heading">
+                            {
+                                citys.map(item => <button onClick = {this.changeCityId.bind(this,item.id)} key = {item.id} className={"btn btn-" + (activeId === item.id ? 'danger' : 'default')}>{ item.title }</button>)
+                            }                          
+                                                       
+                        </div>
+                        <MovieContent city = { this.getCityById() } />
+                    </div> 
+                )
+            }
+        })
+        //电影内容列表   应该让父组件将城市信息传递给子组件去使用来获取电影，当父组件状态改变的时候，让子组件在componentWillReceiveProps里重新获取数据，注意，性能优化!
+        var MovieContent = React.createClass({
+            getInitialState () {
+                return {
+                    movieData: null//电影数据
+                }
+            },
+            getMovies (city) {//根据城市获取数据的方法
+                $.ajax({
+                    url: 'http://api.douban.com/v2/movie/in_theaters',
+                    data: {city:city || this.props.city},
+                    dataType: 'jsonp',
+                    success: (results) => {
+                        this.setState({movieData: results})
+                    }
+                })
+            },
+            componentWillReceiveProps (props, state) {
+                //city属性已经发送变化了，需要重新获取数据，在这里我们需要传入最新的props
+                if ( props.city === this.props.city ) return false;
+                this.getMovies(props.city)
+            },
+            componentWillMount () {//在初始化阶段去获取初始的电影数据
+                this.getMovies()
+            },
+            renderContent () {//渲染内容的函数
+                if ( !this.state.movieData ) return '';
+                let { title, subjects } = this.state.movieData
+                return (
+                    <div>
+                        <p>{title}</p>
+                        <ul className="list-group">
+                            {
+                                subjects.map(item => <li className="list-group-item">{item.title}</li>)
+                            }
+                        </ul>
+                    </div>
+                )
+            },
+            render () {           
+                return (
+                    <div className="panel-body">
+                        { this.renderContent() }
+                    </div>
+                )
+            }
+        })
+
+        ReactDOM.render(<MovieBox/>, document.getElementById('app'))
+
+        //map方法的作用：可以根据当前数组的元素产生一个新的数组
+
+
+        //1. 更改this执行，可以在初始化阶段的钩子函数里执行
+        //2. 在react中循环数据可以使用，map方法
+        //3. 条件渲染的方式就是利用数据控制不再渲染某一个组件
+        //4. shouldComponentUpdate、componentWillReceiveProps都需要做一个性能上的优化考虑
+     
+        //状态提升：将关键数据挂载到组件们的共同的父级组件上 
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<style>
+  #big {
+      font-size: 3em;
+  }
+  h1[data-red] { color: red; }
+
+  .bg-green {
+      background: green;
+  }
+</style>
+
+<body>
+    <p>样式：表达式{}里面写对象</p>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+        //1. 添加类名的使用要使用className
+        //2. 在react中也有表达式，但是表达式的格式是 { }
+        var Hello = React.createClass({
+            style: {"box-shadow": "5px 5px 10px blue"},
+            render () {
+                // let style = {"box-shadow": "5px 5px 10px blue"}
+                return (
+                    <div>
+                        <h1 style = {this.style}  className = "bg-green" data-red id = "big"> 我爱我的祖国 </h1>
+                        {1+2}
+                    </div>
+                )
+            }
+        })
+
+       
+      
+        //将组件给渲染到某一个dom节点中
+        ReactDOM.render(<Hello/>,document.getElementById('app'))
+    </script>
+</body>
+</html>

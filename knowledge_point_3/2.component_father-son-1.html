@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+   
+</style>
+<body>
+    
+    <p>
+        
+    </p>
+    
+    <hr>
+    <div id="app"></div>
+    
+
+
+   
+    <script type="text/babel">
+    //父组件可以将一条动态的数据（父组件自己的状态）传递给子组件，当父组件更改状态的时候，子组件接收到的属性也会变化
+        var Father = React.createClass({
+            getInitialState () {
+                return { sonname: '狗蛋儿' }
+            },     
+            changeSonName () {
+                this.setState({sonname: '李铁锤'})
+            },
+            render:function () {
+                return (
+                    <div>
+                       <p>
+                            这里是父组件   -- <button onClick = {this.changeSonName} >改名字</button>    
+                       </p>
+                       
+                       <hr/>
+
+                       <Son sonname = {this.state.sonname}/>
+                       
+                    </div>
+                )
+            }
+        })  
+        var Son = React.createClass({
+            render:function () {
+                return (
+                    <div>
+                        <p>这里是子组件 -- { this.props.sonname } </p>
+                    </div>
+                )
+            }
+        }) 
+      
+        ReactDOM.render(<Father/>,document.getElementById('app'))
+        
+
+        
+    </script>
+</body>
+</html>

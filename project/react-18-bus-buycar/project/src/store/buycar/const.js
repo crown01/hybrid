@@ -1,0 +1,10 @@
+
+
+const ADD_NEW_GOOD = 'ADD_NEW_GOOD'
+const REDUCE_GOOD = 'REDUCE_GOOD'
+const INITIAL_CARS = 'INITIAL_CARS'
+export {
+    ADD_NEW_GOOD,
+    INITIAL_CARS,
+    REDUCE_GOOD
+}

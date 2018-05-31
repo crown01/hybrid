@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+<style>
+  .son2{
+      width: 100px;height: 100px;
+      border:1px solid #333;
+  }
+</style>
+<body>
+    
+    
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/babel">
+        // A调用父组件的方法，父组件通过ref，标记B组件后调用B的方法
+        var Box = React.createClass({  
+            changeContentColor () {
+                //父组件更改子组件的状态
+                this.content.changeColor()
+            },
+            render:function () {
+                return (
+                    <div>   
+                        <Button changeContentColor = {this.changeContentColor}/> 
+                        <Content ref = {el => this.content = el} />                   
+                    </div>
+                )
+            }
+        })
+        var Button = React.createClass({  
+            render:function () {
+               
+                return (
+                    <div>     
+                        <button onClick = {this.props.changeContentColor}> change </button>                  
+                    </div>
+                )
+            }
+        })
+        var Content = React.createClass({  
+            getInitialState () {
+                return {
+                    color: 'red'
+                }
+            },        
+            changeColor () {
+                this.setState({color: getRandomColor() })
+            },
+            render:function () {
+               
+                return (
+                    <div style = {{background: this.state.color}} className = "son2">     
+                                      
+                    </div>
+                )
+            }
+        })
+        
+
+        ReactDOM.render(<Box/>,document.body)
+
+        function getRandomColor(){ 
+            return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6); 
+        } 
+
+
+        //如果遇到多组件间的通信、状态共享，使用redux架构来解决这个问题。
+
+        //组件通信：
+        // 父子：
+        // 父 -> 子 父组件将自己的状态传递给子组件，当父组件更改自己状态的时候，子组件接收到的属性就发生了变化
+        //          父组件可以通过ref给子组件做出标记，就可以调用子组件的方法来更改子组件的状态
+        // 子 -> 父  父组件将自己的方法传递给子组件以供子组件调用
+        // 非父子： 
+        //  状态提升的方式，将非父子关系转换成多种简单的父子关系
+        // 多组件间的状态共享： redux、flux来解决
+
+    </script>
+</body>
+</html>

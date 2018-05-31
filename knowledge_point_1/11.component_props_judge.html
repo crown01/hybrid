@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./base/react.min.js"></script>
+    <script src="./base/react-dom.min.js"></script>
+    <script src="./base/browser.min.js"></script>
+</head>
+
+<style>
+    
+</style>
+
+<body>
+    
+    <p>在组件内部可以利用一些方式来实现分支效果</p>
+    <p>1.使用三元表达式</p>
+    <p>2.||</p>
+    <p>3.先计算出来再进行设置</p>
+    <hr>
+
+    <div id="app"></div>
+
+    
+
+    <script type="text/babel">
+
+       var Father = React.createClass({
+           render:function () {
+               return (
+                <div>
+                    <p>这里是父组件</p>
+                    <hr/>
+                    <Son name = { '二狗子' } />
+                    <Son  />
+
+                </div>
+               )
+           }
+       })
+       //父组件没有给子组件传递数据的时候，可以设置默认属性，或者采取一些其他的办法
+       var Son = React.createClass({   
+           getName () {
+                return  this.props.name  || '野狗子'
+           },     
+           render:function () {            
+               return (
+                    <div>
+                        <p>我的名字是 { this.props.name || '野狗子' }</p>
+                        <p>我的名字是 { this.props.name ? this.props.name : '野狗子' }</p>
+                        <p>我的名字是 { this.getName() }</p>
+                        <p>我的名字是 { (function (obj){
+                            return  obj.props.name  || '野狗子'
+                        })(this) }</p>
+                    </div>
+               )
+           }
+       })
+
+       ReactDOM.render(<Father/>,app)
+
+    //    alert ( false || 0 )
+
+       
+
+    </script>
+</body>
+</html>
